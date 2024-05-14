@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import { links } from "../../constans/link";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
-const index = () => {
+const Index = () => {
   return (
     <div>
       <Header logo={"GAME SELLER"} links={links} />
@@ -12,4 +12,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

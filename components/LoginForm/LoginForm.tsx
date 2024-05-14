@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styles from "./LoginForm.module.css";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Button from "../Button/Button";
+import cookie from "js-cookie";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -10,8 +12,10 @@ const LoginForm = () => {
   const [password, setPassword] = useState("");
   const [isError, setError] = useState(false);
   const [isBadData, setBadData] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const onLogin = async () => {
+    setLoading(true);
     const loginBody = {
       email: email,
       password: password,
@@ -32,14 +36,17 @@ const LoginForm = () => {
 
       if (response.status === 200) {
         setBadData(false);
-        localStorage.setItem("jwt_token", response.data.jwt_token);
+        cookie.set("jwt_token", response.data.jwt_token);
         router.push("/");
       }
+
+      setLoading(false);
 
       console.log("response", response);
     } catch (err) {
       setBadData(true);
       console.log("err", err);
+      setLoading(false);
     }
   };
 
@@ -56,7 +63,8 @@ const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
         placeholder="password..."
       />
-      <button onClick={onLogin}>Login</button>
+
+      <Button isLoading={isLoading} onLogin={onLogin} title="Login" />
 
       {isError && (
         <div className={styles.error}>Please fill all the inputs</div>
