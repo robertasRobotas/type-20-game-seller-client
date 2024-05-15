@@ -30,7 +30,7 @@ const LoginForm = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3002/users/login",
+        `${process.env.SERVER_URL}/users/login`,
         loginBody
       );
 

@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./Card.module.css";
 import StatusMark from "../StatusMark/StatusMark";
+import Link from "next/link";
 
 type CardProps = {
+  id: string;
   title: string;
   price: number;
   imgUrl: string;
@@ -10,9 +12,9 @@ type CardProps = {
   year: number;
 };
 
-const Card = ({ title, price, imgUrl, condition, year }: CardProps) => {
+const Card = ({ id, title, price, imgUrl, condition, year }: CardProps) => {
   return (
-    <div className={styles.wrapper}>
+    <Link href={`/game/${id}`} className={styles.wrapper}>
       <img alt="product" src={imgUrl} />
       <div className={styles.infoWrapper}>
         <h2>{title}</h2>
@@ -20,7 +22,7 @@ const Card = ({ title, price, imgUrl, condition, year }: CardProps) => {
         <h4>{year}</h4>
         <StatusMark status={condition} />
       </div>
-    </div>
+    </Link>
   );
 };
 

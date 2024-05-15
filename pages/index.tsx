@@ -5,8 +5,12 @@ import React, { useEffect, useState } from "react";
 import cookies from "js-cookie";
 import CardsWrapper from "../components/CardsWrapper/CardsWrapper";
 import { GameType } from "@/types/game";
+import { useRouter } from "next/router";
+// import { getCookie } from "cookies-next";
 
 const Index = () => {
+  const router = useRouter();
+
   const [games, setGames] = useState<GameType[] | null>(null);
 
   const fetchGames = async () => {
@@ -15,7 +19,7 @@ const Index = () => {
         authorization: cookies.get("jwt_token"),
       };
 
-      const response = await axios.get("http://localhost:3002/games", {
+      const response = await axios.get(`${process.env.SERVER_URL}/games`, {
         headers,
       });
 
@@ -23,7 +27,10 @@ const Index = () => {
 
       console.log(response);
     } catch (err) {
-      console.log("err", err);
+      // @ts-expect-error this is correct way to catch error
+      if (err.response.status === 401) {
+        router.push("/login");
+      }
     }
   };
 
@@ -41,3 +48,29 @@ const Index = () => {
 };
 
 export default Index;
+
+// export async function getServerSideProps(ctx: any) {
+//   try {
+//     const headers = {
+//       authorization: getCookie("jwt_token", ctx),
+//     };
+
+//     const response = await axios.get(`${process.env.SERVER_URL}/games`, {
+//       headers,
+//     });
+
+//     return {
+//       props: {
+//         games: response.data.games,
+//         status: response.status,
+//       },
+//     };
+//   } catch (err) {
+//     return {
+//       props: {
+//         // @ts-expect-error
+//         status: err.response.status,
+//       },
+//     };
+//   }
+// }

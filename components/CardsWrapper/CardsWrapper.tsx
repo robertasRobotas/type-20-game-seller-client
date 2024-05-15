@@ -12,6 +12,7 @@ const CardsWrapper = ({ games }: CardsWrapper) => {
     <div className={styles.cardsWrapper}>
       {games.map((game) => (
         <Card
+          id={game.id}
           key={game.id}
           condition={game.condition}
           title={game.title}
