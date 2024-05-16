@@ -64,7 +64,7 @@ const LoginForm = () => {
         placeholder="password..."
       />
 
-      <Button isLoading={isLoading} onLogin={onLogin} title="Login" />
+      <Button isLoading={isLoading} onClick={onLogin} title="Login" />
 
       {isError && (
         <div className={styles.error}>Please fill all the inputs</div>

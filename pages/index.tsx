@@ -6,6 +6,8 @@ import cookies from "js-cookie";
 import CardsWrapper from "../components/CardsWrapper/CardsWrapper";
 import { GameType } from "@/types/game";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import styles from "../styles/Home.module.css";
 // import { getCookie } from "cookies-next";
 
 const Index = () => {
@@ -41,6 +43,10 @@ const Index = () => {
   return (
     <div>
       <Header logo={"GAME SELLER"} links={links} />
+
+      <div className={styles.linkWrapper}>
+        <Link href="/add-game">Add Game</Link>
+      </div>
 
       {games && <CardsWrapper games={games} />}
     </div>

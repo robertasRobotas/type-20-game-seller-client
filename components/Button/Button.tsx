@@ -1,15 +1,31 @@
 import React from "react";
 import Spinner from "../Spinner/Spinner";
+import styles from "./Button.module.css";
 
 type ButtonProps = {
-  onLogin: () => void;
+  onClick: () => void;
   isLoading: boolean;
   title: string;
+  type?: "WARNING" | "NORMAL";
+  className?: string;
 };
 
-const Button = ({ onLogin, isLoading, title }: ButtonProps) => {
+const Button = ({
+  onClick,
+  isLoading,
+  title,
+  type,
+  className,
+}: ButtonProps) => {
   return (
-    <button onClick={onLogin}>{isLoading ? <Spinner /> : <>{title}</>}</button>
+    <button
+      className={`${styles.main} ${type === "WARNING" && styles.warring} ${
+        className && className
+      }`}
+      onClick={onClick}
+    >
+      {isLoading ? <Spinner /> : <>{title}</>}
+    </button>
   );
 };
 
