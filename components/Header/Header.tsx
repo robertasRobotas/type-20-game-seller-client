@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Header.module.css";
+import Link from "next/link";
+import burgerBtn from "../../asssets/burger-menu-svgrepo-com.svg";
 
 type LinkType = {
   id: number;
@@ -13,10 +15,15 @@ type HeaderProps = {
 };
 
 const Header = ({ logo, links }: HeaderProps) => {
-  return (
-    <div className={styles.wrapper}>
-      <div className={styles.logo}>{logo}</div>
+  const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  return (
+    <header className={styles.wrapper}>
+      <Link href="/" className={styles.logo} style={{ textDecoration: "none" }}>
+        {logo}
+      </Link>
+
+      {/* nav could be exported */}
       <nav>
         <ul className={styles.links}>
           {links.map((link) => {
@@ -28,7 +35,32 @@ const Header = ({ logo, links }: HeaderProps) => {
           })}
         </ul>
       </nav>
-    </div>
+
+      {/* could be separate component */}
+      <button
+        onClick={() => setMobileMenuOpen((prevState) => !prevState)}
+        className={styles.burgerBtn}
+      >
+        <img src={burgerBtn.src} alt="burgerBTN" />
+      </button>
+
+      {/* could be separate component */}
+      <div
+        className={`${styles.mobileMenu}  ${
+          isMobileMenuOpen && styles.mobileMenuOpen
+        }`}
+      >
+        <ul className={styles.mobileLinks}>
+          {links.map((link) => {
+            return (
+              <a href={link.href} key={link.id}>
+                {link.title}
+              </a>
+            );
+          })}
+        </ul>
+      </div>
+    </header>
   );
 };
 

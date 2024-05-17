@@ -1,11 +1,11 @@
 .wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  height: 500px;
+  height: 700px;
 }
 
 .imgSection {
-  height: 600px;
+  height: 700px;
 }
 
 .imgSection img {

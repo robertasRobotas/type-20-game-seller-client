@@ -5,6 +5,8 @@ import Header from "@/components/Header/Header";
 import { links } from "../../constans/link";
 import ItemWrapper from "@/components/ItemWrapper/ItemWrapper";
 import { useRouter } from "next/router";
+import Footer from "@/components/Footer/Footer";
+import PageTemplate from "@/components/PageTemplate/PageTemplate";
 
 const Game = () => {
   const [game, setGame] = useState();
@@ -36,12 +38,7 @@ const Game = () => {
     router.query.id && fetchGame();
   }, [router]);
 
-  return (
-    <div>
-      <Header logo={"GAME SELLER"} links={links} />
-      {game && <ItemWrapper game={game} />}
-    </div>
-  );
+  return <PageTemplate>{game && <ItemWrapper game={game} />}</PageTemplate>;
 };
 
 export default Game;

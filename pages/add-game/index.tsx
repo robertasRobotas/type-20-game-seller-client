@@ -6,6 +6,8 @@ import cookies from "js-cookie";
 import axios from "axios";
 import { useRouter } from "next/router";
 import styles from "./AddGame.module.css";
+import Footer from "@/components/Footer/Footer";
+import PageTemplate from "@/components/PageTemplate/PageTemplate";
 
 const AddGame = () => {
   const router = useRouter();
@@ -52,9 +54,7 @@ const AddGame = () => {
     title && condition && coverUrl && price && releaseYear;
 
   return (
-    <div>
-      <Header logo={"GAME SELLER"} links={links} />
-
+    <PageTemplate>
       <div className={styles.form}>
         <input
           placeholder="title"
@@ -95,7 +95,7 @@ const AddGame = () => {
           onClick={addGame}
         />
       </div>
-    </div>
+    </PageTemplate>
   );
 };
 

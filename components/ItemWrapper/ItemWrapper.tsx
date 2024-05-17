@@ -1,11 +1,12 @@
 import { GameType } from "../../types/game";
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ItemWrapper.module.css";
 import StatusMark from "../StatusMark/StatusMark";
 import Button from "../Button/Button";
 import axios from "axios";
 import cookies from "js-cookie";
 import { useRouter } from "next/router";
+import Modal from "../Modal/Modal";
 
 type ItemWrapperProps = {
   game: GameType;
@@ -14,7 +15,7 @@ type ItemWrapperProps = {
 const ItemWrapper = ({ game }: ItemWrapperProps) => {
   const router = useRouter();
 
-  console.log(game);
+  const [isShowWarning, setShowWarning] = useState(false);
 
   const deleteItem = async () => {
     try {
@@ -62,9 +63,17 @@ const ItemWrapper = ({ game }: ItemWrapperProps) => {
           type="WARNING"
           isLoading={false}
           title="Delete item"
-          onClick={deleteItem}
+          onClick={() => setShowWarning(true)}
         />
       </div>
+
+      {isShowWarning && (
+        <Modal
+          message="Do you really want to delete this game?"
+          onConfirm={deleteItem}
+          onCancel={() => setShowWarning(false)}
+        />
+      )}
     </main>
   );
 };
